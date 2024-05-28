@@ -7,7 +7,9 @@ vim.api.nvim_command("autocmd BufRead,BufNewFile *.wsb set filetype=xml")
 vim.g.minipairs_disable = true -- disable auto quotes etc
 
 function no_paste(reg)
-  return function(lines) end
+  return function(lines)
+    return ""
+  end
 end
 
 if os.getenv("SSH_TTY") then
