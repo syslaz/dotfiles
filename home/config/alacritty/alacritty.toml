@@ -1,0 +1,26 @@
+[general]
+import = ["~/.config/alacritty/alacritty-theme/themes/github_dark.toml"]
+
+[terminal]
+shell.program = "/bin/zsh"
+shell.args = ["-i"]
+
+# [window]
+# opacity = 1
+# blur = true
+
+[window.padding]
+x = 4
+y = 4
+
+[font]
+size = 13
+normal = { family = "MesloLGMDZ Nerd Font Propo" }
+
+# [[hints.enabled]]
+# command = "xdg-open"
+# hyperlinks = true
+# post_processing = false
+# persist = false
+# mouse.enabled = true
+# regex = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
