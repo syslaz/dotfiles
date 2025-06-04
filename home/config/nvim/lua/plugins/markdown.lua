@@ -13,7 +13,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
-      opts.ensure_installed = { "markdown", "markdown_inline" } -- Ensure Markdown parsers
+      opts.ensure_installed = { "markdown", "markdown_inline", "rust", "bash", "c", "cpp", "json", "lua" } -- Ensure Markdown parsers
       opts.highlight = {
         enable = true,
         additional_vim_regex_highlighting = { "markdown", "html" }, -- Include html

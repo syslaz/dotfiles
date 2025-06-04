@@ -1,6 +1,12 @@
 return {
+  -- {
+  --   "mrcjkb/rustaceanvim",
+  --   version = "^6", -- Recommended
+  --   lazy = false, -- This plugin is already lazy
+  -- },
   {
-    "mrcjkb/rustaceanvim",
+    "simrat39/rust-tools.nvim",
+    lazy = false,
   },
   {
     "nvim-treesitter/nvim-treesitter",
@@ -11,7 +17,7 @@ return {
       -- Enable syntax highlighting
       opts.highlight = opts.highlight or {}
       opts.highlight.enable = true
-      opts.highlight.additional_vim_regex_highlighting = false
+      -- opts.highlight.additional_vim_regex_highlighting = false
 
       -- Enable indentation
       opts.indent = opts.indent or {}
@@ -42,26 +48,28 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        -- Ensure mason installs the server
         clangd = {
           keys = {
             { "<leader>ch", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
           },
           root_dir = function(fname)
-            return require("lspconfig.util").root_pattern("compile_commands.json", "compile_flags.txt")(fname)
-              or require("lspconfig.util").root_pattern(
-                "Makefile",
-                "configure.ac",
-                "configure.in",
-                "config.h.in",
-                "meson.build",
-                "meson_options.txt",
-                "build.ninja"
-              )(fname)
-              or require("lspconfig.util").find_git_ancestor(fname)
+            return vim.fs.dirname(
+              vim.fs.find({ "compile_commands.json", "compile_flags.txt" }, { path = fname, upward = true })[1]
+            ) or vim.fs.dirname(vim.fs.find({
+              "Makefile",
+              "configure.ac",
+              "configure.in",
+              "config.h.in",
+              "meson.build",
+              "meson_options.txt",
+              "build.ninja",
+            }, {
+              path = fname,
+              upward = true,
+            })[1]) or vim.fs.dirname(vim.fs.find(".git", { path = fname, upward = true })[1])
           end,
           capabilities = {
-            offsetEncoding = { "utf-16" },
+            offsetEncoding = { "utf-16", "utf-8" },
           },
           cmd = {
             "clangd",
